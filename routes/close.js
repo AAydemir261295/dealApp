@@ -2,18 +2,22 @@ var express = require('express');
 var router = express.Router();
 var { Deals } = require("../src/sequelizer");
 
+router.post('/', async function (req, res, next) {
 
-router.get('/:id', async function (req, res, next) {
-    var dealId = req.params.id;
+    var item = req.body;
 
-    const result = await Deals.update({
-        deal_status: "in process"
-    },
-        { where: { deal_id: dealId } });
-
-    if (result) {
-        res.sendStatus(200);
-    } else {
+    try {
+        const result = await Deals.update({
+            deal_status: "closed",
+            deal_solution_text: item.deal_solution_text,
+        },
+            { where: { deal_id: item.deal_id } });
+        if (result) {
+            res.send({ "Текст решения проблемы": item.deal_solution_text });
+        } else {
+            res.sendStatus(418);
+        }
+    } catch {
         res.sendStatus(404);
     }
 });
