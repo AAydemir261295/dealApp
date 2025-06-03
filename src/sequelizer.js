@@ -11,10 +11,7 @@ const Deals = sequelize.define("deals",
     {
         deal_id: {
             type: DataTypes.INTEGER,
-            autoIncrement: true,
-            primaryKey: true,
             autoIncrementIdentity: true
-            // allowNull: true,
         },
         deal_timestamp: {
             type: DataTypes.BIGINT,
