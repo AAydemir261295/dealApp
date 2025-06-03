@@ -89,13 +89,4 @@ function onListening() {
   debug('Listening on ' + bind);
 }
 
-/**
- * postgres user
- */
 
-global.sqlUser = "postgres";
-global.sqlPass = "";
-global.sqlDb = "deals";
-global.sqlTable = "deals";
-global.sqlPort = 5432;
-global.sqlHost = "localhost";
