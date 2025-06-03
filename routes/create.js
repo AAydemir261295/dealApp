@@ -15,7 +15,7 @@ router.post('/', async function (req, res, next) {
   }
 
   const result = await Deals.create(item);
-  console.log({ "Текст обращения": result.dataValues.deal_text, "Тема обращения": result.dataValues.deal_theme });
+  
   if (result) {
     res.send({ "Текст обращения": result.dataValues.deal_text, "Тема обращения": result.dataValues.deal_theme });
   } else {
