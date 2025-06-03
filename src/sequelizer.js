@@ -24,9 +24,7 @@ const Deals = sequelize.define("deals",
         },
         deal_text: { type: DataTypes.STRING(512) },
         deal_status: { type: DataTypes.STRING(64) },
-        deal_solution_text: { type: DataTypes.STRING(512) },
-        deal_result: { type: DataTypes.STRING(512) }
-
+        deal_solution_text: { type: DataTypes.STRING(512) }
     },
     {
         createdAt: false,
