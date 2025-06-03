@@ -5,7 +5,7 @@ var pickupRoute = require("./routes/pickUp");
 var closeRoute = require("./routes/close");
 var rejectRoute = require("./routes/reject");
 var listRoute = require("./routes/list");
-
+var rejectAllRoute = require("./routes/rejectAll");
 
 var app = express();
 
@@ -18,6 +18,8 @@ app.use('/pickup', pickupRoute);
 app.use('/close', closeRoute);
 app.use('/reject', rejectRoute);
 app.use('/list', listRoute);
+app.use('/rejectAll', rejectAllRoute);
+
 
 
 
