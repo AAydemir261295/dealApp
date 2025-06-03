@@ -3,7 +3,7 @@ var router = express.Router();
 var { Deals } = require("../src/sequelizer");
 
 
-router.post('/create', async function (req, res, next) {
+router.post('/', async function (req, res, next) {
   var deal = req.body;
   var timeStamp = Date.now();
   var dealStatus = "new";
