@@ -11,7 +11,7 @@ router.get('/:id', async function (req, res, next) {
     const result = await Deals.update({
         deal_status: STATUS_INPROCESS
     },
-        { where: { deal_id: dealId, status: STATUS_NEW } });
+        { where: { deal_id: dealId, deal_status: STATUS_NEW } });
 
     console.log(result);
 
