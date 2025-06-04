@@ -30,7 +30,8 @@ router.post('/', async function (req, res, next) {
         } else {
             res.sendStatus(418);
         }
-    } catch {
+    } catch (error) {
+        console.log(error);
         res.sendStatus(404);
     }
 });
