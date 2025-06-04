@@ -8,16 +8,19 @@ router.get('/:id', async function (req, res, next) {
 
     var dealId = req.params.id;
 
-    const result = await Deals.update({
-        deal_status: STATUS_INPROCESS
-    },
-        { where: { deal_id: dealId, deal_status: STATUS_NEW } });
+    try {
+        const result = await Deals.update({
+            deal_status: STATUS_INPROCESS
+        },
+            { where: { deal_id: dealId, deal_status: STATUS_NEW } });
 
-    console.log(result);
-
-    if (result) {
-        res.sendStatus(200);
-    } else {
+        if (result) {
+            res.sendStatus(200);
+        } else {
+            res.sendStatus(404);
+        }
+    } catch (error) {
+        console.log(error);
         res.sendStatus(404);
     }
 });
