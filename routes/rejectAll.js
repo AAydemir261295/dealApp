@@ -14,7 +14,6 @@ router.post('/', async function (req, res, next) {
         },
             { where: { deal_status: STATUS_INPROCESS } });
 
-        console.log(result);
 
         if (result) {
             res.send({ "Текст отмены обращений": rejectReason });
