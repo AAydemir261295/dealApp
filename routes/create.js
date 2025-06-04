@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var { Deals } = require("../src/sequelizer");
+var { Deals } = require("../src/Sequelizer");
 const { STATUS_NEW } = require('../src/finals');
 // var statuses = require("../src/finals");
 

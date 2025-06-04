@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const { fromToCache, fromCache } = require('../src/cache');
+const { fromToCache, fromCache } = require('../src/ListCache');
 
 router.get('/:from/:to', fromToCache, async function (req, res, next) {
     var isCached = req.cached;
