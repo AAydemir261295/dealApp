@@ -1,33 +1,13 @@
 var express = require('express');
 var router = express.Router();
-var { Deals } = require("../src/sequelizer");
-const { Op } = require('sequelize');
 
-router.get('/:from/:to', async function (req, res, next) {
+const { fromToCache, fromCache } = require('../src/cache');
 
-    var timeStampFrom = req.params.from;
-    var timeStampTo = req.params.to;
-    //   [Op.gte]: 6,              // >= 6
-    //   [Op.lte]: 7,              // <= 7
-    try {
-        const result = await Deals.findAll({
-            raw: true,
-            where:
-            {
-                deal_timestamp:
-                {
-                    [Op.and]:
-                        { [Op.gte]: timeStampFrom, [Op.lte]: timeStampTo }
-                }
-            }
-        });
-        console.log(result);
-        if (result) {
-            res.send(result);
-        } else {
-            res.sendStatus(418);
-        }
-    } catch {
+router.get('/:from/:to', fromToCache, async function (req, res, next) {
+    var isCached = req.cached;
+    if (isCached) {
+        res.send(isCached);
+    } else {
         res.sendStatus(404);
     }
 });
@@ -37,33 +17,11 @@ router.get('/:from/:to', async function (req, res, next) {
 // 
 // 
 
-router.get('/:from', async function (req, res, next) {
-
-    var timeStampFrom = req.params.from;
-    // 24 * 60 * 60 * 1000;
-    var timeStampTo = parseInt(timeStampFrom) + 86400000;
-
-    console.log(typeof timeStampFrom);
-
-    try {
-        const result = await Deals.findAll({
-            raw: true,
-            where:
-            {
-                deal_timestamp:
-                {
-                    [Op.and]:
-                        { [Op.gte]: timeStampFrom, [Op.lte]: timeStampTo }
-                }
-            }
-        });
-        console.log(result);
-        if (result) {
-            res.send(result);
-        } else {
-            res.sendStatus(418);
-        }
-    } catch {
+router.get('/:from', fromCache, async function (req, res, next) {
+    var isCached = req.cached;
+    if (isCached) {
+        res.send(isCached);
+    } else {
         res.sendStatus(404);
     }
 });
