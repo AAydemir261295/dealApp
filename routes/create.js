@@ -14,11 +14,11 @@ router.post('/', async function (req, res, next) {
     deal_timestamp: timeStamp
   }
 
-  const result = await Deals.create(item);
-
-  if (result) {
+  try {
+    const result = await Deals.create(item);
     res.send({ "Текст обращения": result.dataValues.deal_text, "Тема обращения": result.dataValues.deal_theme });
-  } else {
+  } catch (error) {
+    console.log(error);
     res.sendStatus(404);
   }
 });
