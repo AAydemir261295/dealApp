@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var { Deals } = require("../src/Sequelizer");
 const { STATUS_NEW, STATUS_INPROCESS } = require('../src/finals');
-const sanitizeCache = require('../src/CacheSanitizer');
+const { sanitizeCache } = require('../src/CacheSanitizer');
 
 
 router.get('/:id', async function (req, res, next) {

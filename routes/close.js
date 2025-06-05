@@ -3,7 +3,7 @@ var router = express.Router();
 var { Deals } = require("../src/Sequelizer");
 const { Op } = require('sequelize');
 const { STATUS_NEW, STATUS_INPROCESS, STATUS_CLOSED } = require('../src/finals');
-const sanitizeCache = require('../src/CacheSanitizer');
+const { sanitizeCache } = require('../src/CacheSanitizer');
 
 router.post('/', async function (req, res, next) {
 

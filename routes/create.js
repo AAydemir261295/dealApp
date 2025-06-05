@@ -2,9 +2,10 @@ var express = require('express');
 var router = express.Router();
 var { Deals } = require("../src/Sequelizer");
 const { STATUS_NEW } = require('../src/finals');
-// var statuses = require("../src/finals");
+const { sanitizeCache } = require('../src/CacheSanitizer');
 
-router.post('/', async function (req, res, next) {
+// add sanitizeCache
+router.post('/',  async function (req, res, next) {
   var deal = req.body;
   var timeStamp = Date.now();
 
