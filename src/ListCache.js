@@ -10,8 +10,8 @@ async function fromToCache(req, res, next) {
     try {
         const key = JSON.stringify({
             type: "fromTo",
-            from: timeStampFrom,
-            to: timeStampTo
+            from: parseInt(timeStampFrom),
+            to: parseInt(timeStampTo)
         });
 
         const cacheValue = await client.get(key);
@@ -55,9 +55,9 @@ async function fromCache(req, res, next) {
 
     // timeStampFrom come from front 
     // with day start hour in miliseconds
-    var timeStampFrom = req.params.from;
+    var timeStampFrom = parseInt(req.params.from);
     // 24 * 60 * 60 * 1000;
-    var timeStampTo = parseInt(timeStampFrom) + 86399999;
+    var timeStampTo = timeStampFrom + 86399999;
 
     try {
         const key = JSON.stringify({
@@ -65,6 +65,7 @@ async function fromCache(req, res, next) {
             from: timeStampFrom,
             to: timeStampTo
         });
+
 
         const cacheValue = await client.get(key);
 
