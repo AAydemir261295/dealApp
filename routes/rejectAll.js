@@ -27,7 +27,7 @@ router.post('/', async function (req, res, next) {
             sanitizeCacheMultiple(result[1].map((v) => v.dataValues.deal_timestamp))
             res.send({ "Текст отмены обращений": rejectReason });
         } else {
-            res.sendStatus(418);
+            res.sendStatus(404);
         }
     } catch (error) {
         console.log(error);

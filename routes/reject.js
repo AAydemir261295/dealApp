@@ -23,7 +23,7 @@ router.post('/', async function (req, res, next) {
             sanitizeCache(result[1].dataValues.deal_timestamp);
             res.send({ "Текст отмены обращения": item.deal_solution_text });
         } else {
-            res.sendStatus(418);
+            res.sendStatus(404);
         }
     } catch (error) {
         console.log(error);
