@@ -4,8 +4,7 @@ var { Deals } = require("../src/Sequelizer");
 const { STATUS_NEW } = require('../src/finals');
 const { sanitizeCache } = require('../src/CacheSanitizer');
 
-// add sanitizeCache
-router.post('/',  async function (req, res, next) {
+router.post('/', async function (req, res, next) {
   var deal = req.body;
   var timeStamp = Date.now();
 
@@ -17,7 +16,12 @@ router.post('/',  async function (req, res, next) {
 
   try {
     const result = await Deals.create(item);
-    res.send({ "Текст обращения": result.dataValues.deal_text, "Тема обращения": result.dataValues.deal_theme });
+    if (result) {
+      sanitizeCache(timeStamp);
+      res.send({ "Текст обращения": result.dataValues.deal_text, "Тема обращения": result.dataValues.deal_theme });
+    } else {
+      res.sendStatus(404);
+    }
   } catch (error) {
     console.log(error);
     res.sendStatus(404);
