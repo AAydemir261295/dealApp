@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var { Deals } = require("../src/Sequelizer");
 const { STATUS_REJECT } = require('../src/finals');
+const sanitizeCache = require('../src/CacheSanitizer');
 
 router.post('/', async function (req, res, next) {
 
@@ -12,8 +13,15 @@ router.post('/', async function (req, res, next) {
             deal_status: STATUS_REJECT,
             deal_solution_text: item.deal_solution_text,
         },
-            { where: { deal_id: item.deal_id } });
+            {
+                where:
+                    { deal_id: item.deal_id },
+                returning: true,
+                plain: true
+            });
         if (result) {
+            // console.log(result);
+            sanitizeCache(result[1].dataValues.deal_timestamp);
             res.send({ "Текст отмены обращения": item.deal_solution_text });
         } else {
             res.sendStatus(418);
