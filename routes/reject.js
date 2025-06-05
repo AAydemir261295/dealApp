@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var { Deals } = require("../src/Sequelizer");
 const { STATUS_REJECT } = require('../src/finals');
-const sanitizeCache = require('../src/CacheSanitizer');
+const { sanitizeCache } = require('../src/CacheSanitizer');
 
 router.post('/', async function (req, res, next) {
 
@@ -20,13 +20,13 @@ router.post('/', async function (req, res, next) {
                 plain: true
             });
         if (result) {
-            // console.log(result);
             sanitizeCache(result[1].dataValues.deal_timestamp);
             res.send({ "Текст отмены обращения": item.deal_solution_text });
         } else {
             res.sendStatus(418);
         }
-    } catch {
+    } catch (error) {
+        console.log(error);
         res.sendStatus(404);
     }
     // 
