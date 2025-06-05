@@ -3,6 +3,7 @@ var router = express.Router();
 var { Deals } = require("../src/Sequelizer");
 const { Op } = require('sequelize');
 const { STATUS_NEW, STATUS_INPROCESS, STATUS_CLOSED } = require('../src/finals');
+const sanitizeCache = require('../src/CacheSanitizer');
 
 router.post('/', async function (req, res, next) {
 
@@ -23,9 +24,13 @@ router.post('/', async function (req, res, next) {
                                 [{ deal_status: STATUS_NEW },
                                 { deal_status: STATUS_INPROCESS }]
                         }]
-                }
+                },
+                returning: true,
+                plain: true
+
             });
         if (result) {
+            sanitizeCache(result[1].dataValues.deal_timestamp);
             res.send({ "Текст решения проблемы": item.deal_solution_text });
         } else {
             res.sendStatus(418);
